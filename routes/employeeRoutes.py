@@ -2,11 +2,11 @@ from flask import Flask, request
 from flask_restful import Resource, reqparse, abort
 
 from dao import userDao
-from models.userModel import UserModel
+from models.employeeModel import EmployeeModel
 
 user_put_args = reqparse.RequestParser()
 user_put_args.add_argument("name", type=str, help="my naaame")
-class UserRouter (Resource):
+class EmployeeRouter (Resource):
     def get(self, id):
         result = userDao.getById(id)
         if(result["id"]==0):
@@ -22,7 +22,7 @@ class UserRouter (Resource):
         if(userDao.delete(id)==False):
             abort(404)
         return {"data":"success"}
-class UserListRouter(Resource):
+class EmployeeListRouter(Resource):
     def get(self):
         return userDao.getAll()
     def post(self):

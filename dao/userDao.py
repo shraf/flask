@@ -1,30 +1,35 @@
 from flask_restful import fields, marshal_with
 from models.db import db
-from models.userModel import UserModel
+from models.employeeModel import EmployeeModel
 
 resource_fields = {
     'id' : fields.Integer,
-    'name': fields.String
+    'name': fields.String,
+    'email': fields.String,
+    'absence' : fields.Integer,
+    'shift_duration': fields.Integer,
+    'created_at': fields.DateTime,
+    'start_time': fields.DateTime
 }
 @marshal_with(resource_fields)
 def getAll():
-    result =  UserModel.query.all()
+    result =  EmployeeModel.query.all()
     return result
 
 @marshal_with(resource_fields)
 def getById(id):
-    result = UserModel.query.get(id)
+    result = EmployeeModel.query.get(id)
     print(result)
     return result
 
 def create(user):
-    db.session.add(UserModel(**user))
+    db.session.add(EmployeeModel(**user))
     db.session.commit()
     return True
 
 
 def update(new_user, id):
-    user = UserModel.query.get(id)
+    user = EmployeeModel.query.get(id)
     if(user == None):
         return False
     user.name = new_user['name']
@@ -32,7 +37,7 @@ def update(new_user, id):
     return True
 
 def delete(id):
-    user = UserModel.query.get(id)
+    user = EmployeeModel.query.get(id)
     if(user==None):
         return False
     db.session.delete(user)
