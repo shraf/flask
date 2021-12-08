@@ -14,6 +14,7 @@ resource_fields = {
 @marshal_with(resource_fields)
 def getAll():
     result =  EmployeeModel.query.all()
+    print(result)
     return result
 
 @marshal_with(resource_fields)

@@ -3,6 +3,7 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from models.db import db
 from routes.employeeRoutes import  EmployeeRouter, EmployeeListRouter
+from routes.waitingRoutes import WaitingListRouter
 from models.employeeModel import EmployeeModel
 app = Flask(__name__)
 api = Api(app)
@@ -14,6 +15,7 @@ with app.app_context():
     db.create_all()
 api.add_resource(EmployeeRouter, "/employee/<int:id>")
 api.add_resource(EmployeeListRouter, "/employee")
+api.add_resource(WaitingListRouter, "/waiting")
 
 
 
