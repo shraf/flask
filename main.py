@@ -2,8 +2,8 @@ from flask import Flask
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from models.db import db
-from routes.userRoutes import  UserRouter, UserListRouter
-from models.userModel import UserModel
+from routes.employeeRoutes import  EmployeeRouter, EmployeeListRouter
+from models.employeeModel import EmployeeModel
 app = Flask(__name__)
 api = Api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://sharaf:sharaf@localhost/flasksql'
@@ -12,8 +12,8 @@ app.secret_key = 'secret string'
 db.init_app(app)
 with app.app_context():
     db.create_all()
-api.add_resource(UserRouter, "/user/<int:id>")
-api.add_resource(UserListRouter, "/user")
+api.add_resource(EmployeeRouter, "/employee/<int:id>")
+api.add_resource(EmployeeListRouter, "/employee")
 
 
 
