@@ -6,25 +6,31 @@ from models.userModel import UserModel
 
 user_put_args = reqparse.RequestParser()
 user_put_args.add_argument("name", type=str, help="my naaame")
-class UserRouter (Resource):
+
+
+class UserRouter(Resource):
     def get(self, id):
-        result = userDao.getById(id)
-        if(result["id"]==0):
+        result = userDao.get_by_id(id)
+        if result["id"] == 0:
             abort(404)
         return result
+
     def patch(self, id):
         args = user_put_args.parse_args()
-        if(userDao.update(args,id)==False):
+        if not userDao.update(args, id):
             abort(404)
-        return {"data":"success"}
+        return {"data": "success"}
 
     def delete(self, id):
-        if(userDao.delete(id)==False):
+        if not userDao.delete(id):
             abort(404)
-        return {"data":"success"}
+        return {"data": "success"}
+
+
 class UserListRouter(Resource):
     def get(self):
-        return userDao.getAll()
+        return userDao.get_all()
+
     def post(self):
         args = user_put_args.parse_args()
         userDao.create(args)
